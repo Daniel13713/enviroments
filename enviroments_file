@@ -1,0 +1,82 @@
+
+
+######################## Python ################################
+#Install pip to python3:
+sudo apt install python3-pip
+#pyenv
+sudo apt-get install -y make build-essential libssl-dev zlib1g-dev \
+libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev \
+libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl
+curl https://pyenv.run | bash
+# ---> .bashrc 
+echo "export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"" >> ~/.bashrc
+exec $SHELL
+# To working with mysql and flask
+sudo apt-get install python-dev default-libmysqlclient-dev libssl-dev
+
+######################## Mysql #################################
+#Install mysql server: 
+sudo apt install mysql-server
+sudo /etc/init.d/mysql start #stop, status...
+sudo mysql_secure_installation
+sudo mysql
+
+
+######################## ZSH #################################
+
+######################## NodeJs #################################
+curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+sudo apt-get install -y nodejs
+# Style
+sudo npm install semistandard --global
+
+######################## C #################################
+#valgrind
+sudo apt install valgrind
+#Style
+git clone git@github.com:holbertonschool/Betty.git
+cd Betty
+sudo ./install.sh
+echo "#!/bin/bash
+# Simply a wrapper script to keep you from having to use betty-style
+# and betty-doc separately on every item.
+# Originally by Tim Britton (@wintermanc3r), multiargument added by
+# Larry Madeo (@hillmonkey)
+
+BIN_PATH="/usr/local/bin"
+BETTY_STYLE="betty-style"
+BETTY_DOC="betty-doc"
+
+if [ "$#" = "0" ]; then
+    echo "No arguments passed."
+    exit 1
+fi
+
+for argument in "$@" ; do
+    echo -e "\n========== $argument =========="
+    ${BIN_PATH}/${BETTY_STYLE} "$argument"
+    ${BIN_PATH}/${BETTY_DOC} "$argument"
+done" > betty
+sudo cp betty /bin/ #or add to PATH
+
+################## Devops ###################################
+#Puppet (don't work on ubuntu18, but yes on 20.04):
+apt-get install -y ruby=1:2.7+1 --allow-downgrades
+apt-get install -y ruby-augeas
+apt-get install -y ruby-shadow
+apt-get install -y puppet
+#nginx
+sudo apt-get update
+sudo apt-get install nginx
+
+
+################## Docker ####################################3
+#On windows wsl
+docker run --name my_name -d ubuntu tail -f /dev/null #mantiene el contenedor vivo
+docker exec -it my_name #corre el contenedor de manera interactiva
+docker inpect container #show info about container
+docker run -p portmypc:portcontainer nginx #manejo de puertos
+docker logs -f container #ver las peticiones fuera del contenedor(-f)
